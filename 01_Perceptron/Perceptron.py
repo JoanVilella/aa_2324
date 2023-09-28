@@ -39,9 +39,16 @@ class Perceptron:
             Target values.
 
         """
-        self.w_ = np.zeros(1 + X.shape[1])  # First position corresponds to threshold
 
         # TODO: Put your code (fit algorithm)
+        for _ in range(self.n_iter):
+            for x, y in zip(X, y):
+                output = np.dot(x, self.w_[1:]) + self.w_[0]          
+                 
+                prediction = 1 if output >= 0 else -1
+
+                self.w_[1:] += self.eta * (y - prediction) * x
+
 
 
     def predict(self, X):
@@ -53,4 +60,5 @@ class Perceptron:
 
         # TODO: Put your code
 
-        return np.random.randint(0, 2, size=X.shape[0])  # remove
+        sum = np.dot(X, self.w_[1:]) + self.w_[0]
+        return np.where(sum >= 0.0, 1, -1)
