@@ -42,12 +42,13 @@ class Perceptron:
 
         # TODO: Put your code (fit algorithm)
         for _ in range(self.n_iter):
-            for x, y in zip(X, y):
-                output = np.dot(x, self.w_[1:]) + self.w_[0]          
+            for xi, target in zip(X, y):
+                output = np.dot(xi, self.w_[1:]) + self.w_[0]          
                  
                 prediction = 1 if output >= 0 else -1
 
-                self.w_[1:] += self.eta * (y - prediction) * x
+                self.w_[1:] += self.eta * (target - prediction) * xi # if prediction is correct, update = 0
+                self.w_[0] += self.eta * (target - prediction) # bias
 
 
 
