@@ -46,6 +46,15 @@ class Adaline:
 
         for _ in range(self.n_iter):
             # TODO: PUT YOUR CODE HERE
+            errors = 0
+            for xi, target in zip(X, y):  # A cada iteració aconseguim una mostra i la seva classe
+                update = self.eta * (target - self.net_output(xi))  # Calcula l'error
+                self.w_[1:] += update * xi  # actualitzacio dels pesos
+                self.w_[0] += update  # actualitzacio del bias
+
+                # Feina extra: calculam els errors de classificacio a cada iteració                
+                errors += int(update != 0.0)
+            self.cost_.append(errors)
 
     def net_output(self, X):
         """Calculate net output"""

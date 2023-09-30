@@ -56,11 +56,20 @@ class Adaline(object):
             if self.shuffle:
                 X, y = self.__shuffle(X, y)
 
+            errors = 0
             for xi, target in zip(X, y):
 
-               # TODO: Put your code here
+                # TODO: Put your code here
+                update = self.eta * (target - self.net_output(xi))  # Calcula l'error
+                self.w_[1:] += update * xi
+                self.w_[0] += update
 
+                # Feina extra: calculam els errors de classificacio a cada iteració
+                errors += int(update != 0.0)
+            
+            self.cost_.append(0.5 * errors**2)
 
+ 
 
     def __shuffle(self, X, y):
         """Shuffle training data"""
