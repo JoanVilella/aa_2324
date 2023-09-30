@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 
 from sklearn.datasets import make_classification
 # Com les classes es diuen igual basta canviar el fitxer ;)
-from AdaLine_SGD import Adaline
-#from AdaLine_Batch import Adaline
+#from AdaLine_SGD import Adaline
+from AdaLine_Batch import Adaline
 
 
 

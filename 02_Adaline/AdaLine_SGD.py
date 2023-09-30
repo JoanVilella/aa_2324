@@ -56,20 +56,23 @@ class Adaline(object):
             if self.shuffle:
                 X, y = self.__shuffle(X, y)
 
-            errors = 0
+            # Reinicia el vector de costos a cada iteració (EXTRA)
+            iteration_cost = []
             for xi, target in zip(X, y):
 
                 # TODO: Put your code here
-                update = self.eta * (target - self.net_output(xi))  # Calcula l'error
-                self.w_[1:] += update * xi
-                self.w_[0] += update
+                error = self.eta * (target - self.net_output(xi))  # Calcula l'error
+                self.w_[1:] += error * xi  # Actualitza els pesos
+                self.w_[0] += error
 
                 # Feina extra: calculam els errors de classificacio a cada iteració
-                errors += int(update != 0.0)
+                partial_cost = 0.5 * error**2
+                iteration_cost.append(partial_cost)
             
-            self.cost_.append(0.5 * errors**2)
-
- 
+            # Feina extra: calculam els errors de classificacio a cada iteració
+            avg_cost = sum(iteration_cost)/len(y)
+            iteration_cost = (avg_cost**2).sum() / 2.0 # Calcula el cost mitjà
+            self.cost_.append(iteration_cost)
 
     def __shuffle(self, X, y):
         """Shuffle training data"""
