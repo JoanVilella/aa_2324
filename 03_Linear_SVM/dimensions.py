@@ -39,4 +39,7 @@ y_prediction_svc = svc.predict(X_test_transformed)
 # TODO
 # Calculate by hand the accuracy
 accuracy = np.sum(y_prediction_svc == y_test) / len(y_test)
-print("Accuracy: ", accuracy)
+
+# Compare with the accuracy of the SVC class
+print("SVC accuracy: ", svc.score(X_test_transformed, y_test))
+print("My accuracy: ", accuracy)
